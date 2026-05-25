@@ -1,13 +1,22 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { loveQuotes } from '../data/content'
+import { useAudio } from '../context/AudioContext'
 
 export default function QuotesScreen() {
+  const { playClick } = useAudio()
   const [index, setIndex] = useState(0)
   const quote = loveQuotes[index]
 
-  const next = () => setIndex((i) => (i + 1) % loveQuotes.length)
-  const prev = () => setIndex((i) => (i - 1 + loveQuotes.length) % loveQuotes.length)
+  const next = () => {
+    playClick()
+    setIndex((i) => (i + 1) % loveQuotes.length)
+  }
+  
+  const prev = () => {
+    playClick()
+    setIndex((i) => (i - 1 + loveQuotes.length) % loveQuotes.length)
+  }
 
   return (
     <div className="screen-content quotes-screen">
@@ -19,10 +28,10 @@ export default function QuotesScreen() {
           <motion.blockquote
             key={index}
             className="quote-card"
-            initial={{ opacity: 0, rotateY: 90 }}
-            animate={{ opacity: 1, rotateY: 0 }}
-            exit={{ opacity: 0, rotateY: -90 }}
-            transition={{ duration: 0.4 }}
+            initial={{ opacity: 0, rotateY: 90, scale: 0.9 }}
+            animate={{ opacity: 1, rotateY: 0, scale: 1 }}
+            exit={{ opacity: 0, rotateY: -90, scale: 0.9 }}
+            transition={{ duration: 0.45, ease: 'easeInOut' }}
           >
             <span className="quote-mark">"</span>
             <p>{quote.quote}</p>

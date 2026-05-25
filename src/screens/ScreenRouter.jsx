@@ -38,11 +38,11 @@ export default function ScreenRouter({ screenId, onGameComplete }) {
     case 'quotes':
       return <QuotesScreen />
     case 'game-hearts':
-      return <CatchHeartsGame onComplete={onGameComplete} />
+      return <CatchHeartsGame onComplete={() => onGameComplete(screenId)} />
     case 'game-memory':
-      return <MemoryMatchGame onComplete={onGameComplete} />
+      return <MemoryMatchGame onComplete={() => onGameComplete(screenId)} />
     case 'game-quiz':
-      return <LoveQuizGame onComplete={onGameComplete} />
+      return <LoveQuizGame onComplete={() => onGameComplete(screenId)} />
     case 'gallery':
       return <GalleryScreen />
     case 'proposal':

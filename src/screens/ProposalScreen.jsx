@@ -1,21 +1,29 @@
 import { useState, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { proposal } from '../data/content'
+import { useAudio } from '../context/AudioContext'
 import AnimatedPhoto from '../components/AnimatedPhoto'
 
 export default function ProposalScreen({ onYes }) {
+  const { playClick, playYes } = useAudio()
   const [noCount, setNoCount] = useState(0)
   const [noPos, setNoPos] = useState({ x: 0, y: 0 })
 
   const noMessage = proposal.noResponses[Math.min(noCount, proposal.noResponses.length - 1)]
 
   const dodgeNo = useCallback(() => {
+    playClick()
     setNoPos({
       x: (Math.random() - 0.5) * (80 + noCount * 20),
       y: (Math.random() - 0.5) * (60 + noCount * 15),
     })
     setNoCount((c) => c + 1)
-  }, [noCount])
+  }, [noCount, playClick])
+
+  const handleYes = () => {
+    playYes()
+    onYes?.()
+  }
 
   return (
     <div className="screen-content proposal-screen">
@@ -56,7 +64,7 @@ export default function ProposalScreen({ onYes }) {
         <motion.button
           type="button"
           className="btn-yes-big"
-          onClick={onYes}
+          onClick={handleYes}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
         >

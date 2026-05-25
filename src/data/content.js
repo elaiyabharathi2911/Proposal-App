@@ -100,10 +100,10 @@ export const proposalLetter = {
     'I watched you daily — in class, during interval, at lunch on the first bench.',
     'I never stopped loving you. I never will.',
     '',
-    'You are my college dream, my quiet prayer, my reason for heart beating faster on ordinary days.',
-    'You were everything. You are everything.',
+    'This letter is a summary of my whole story: the quiet glances in class, the hidden smiles in lab, the longing at lunch, and my waiting heart when you were away.',
+    'Everything I felt then led to this moment — a proposal letter written from my deepest truth.',
     '',
-    'So today, I ask you — not from silence, but from an open heart...',
+    'So today, I ask you with my whole heart: will you accept my love and say yes?',
   ],
   signature: 'Waiting for your answer 💕',
   backgroundImage: '/images/proposal.jpg',
@@ -156,9 +156,9 @@ export const proposal = {
 }
 
 export const celebration = {
-  title: 'You Love Me Too! 🎉💕',
-  message: 'Preethi, you just made me the happiest person! Thank you for loving me back! 💕🥰',
-  submessage: 'From college → missing you → you came back → forever. I love you! 🎓💑',
+  title: 'I Want to Propose to You 💍💕',
+  message: 'Preethi, I am waiting for your love and I want to tell you I love you. Please accept my heart and say yes.',
+  submessage: 'From college memories to this moment, I am waiting for your acceptance. I love you forever. 🎓💑',
   image: '/images/celebration.jpg',
   imageFallback: 'https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=800&q=80',
   imageAlt: 'Our love story',
@@ -240,7 +240,7 @@ export function getScreenLabel(id) {
     'game-quiz': 'Game 3',
     gallery: 'Photos',
     letter: 'My Heart',
-    'proposal-letter': 'The Question',
+    'proposal-letter': 'Proposal Letter',
     proposal: 'Your Answer',
   }
   return labels[id] || ''

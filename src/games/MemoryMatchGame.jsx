@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { games } from '../data/content'
+import { useAudio } from '../context/AudioContext'
 
 const PAIRS = ['💕', '🎓', '✨', '🌸', '💖', '📚']
 
@@ -14,6 +15,7 @@ function shuffle(arr) {
 }
 
 export default function MemoryMatchGame({ onComplete }) {
+  const { playFlip, playMatch, playSuccess } = useAudio()
   const [cards, setCards] = useState(() => shuffle(PAIRS))
   const [flipped, setFlipped] = useState([])
   const [matched, setMatched] = useState([])
@@ -23,23 +25,26 @@ export default function MemoryMatchGame({ onComplete }) {
     if (flipped.length !== 2) return
     const [a, b] = flipped
     if (cards[a].emoji === cards[b].emoji) {
+      playMatch()
       setMatched((m) => [...m, a, b])
       setFlipped([])
     } else {
       const t = setTimeout(() => setFlipped([]), 800)
       return () => clearTimeout(t)
     }
-  }, [flipped, cards])
+  }, [flipped, cards, playMatch])
 
   useEffect(() => {
     if (matched.length === cards.length && cards.length > 0) {
+      playSuccess()
       setWon(true)
       onComplete?.()
     }
-  }, [matched, cards.length, onComplete])
+  }, [matched, cards.length, onComplete, playSuccess])
 
   const flip = (index) => {
     if (flipped.length >= 2 || flipped.includes(index) || matched.includes(index)) return
+    playFlip()
     setFlipped((f) => [...f, index])
   }
 

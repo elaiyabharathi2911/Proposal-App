@@ -1,8 +1,10 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { games } from '../data/content'
+import { useAudio } from '../context/AudioContext'
 
 export default function LoveQuizGame({ onComplete }) {
+  const { playCorrect, playWrong, playSuccess } = useAudio()
   const { questions } = games.quiz
   const [step, setStep] = useState(0)
   const [score, setScore] = useState(0)
@@ -14,9 +16,15 @@ export default function LoveQuizGame({ onComplete }) {
   const choose = (index) => {
     if (picked !== null) return
     setPicked(index)
-    if (index === q.correct) setScore((s) => s + 1)
+    if (index === q.correct) {
+      playCorrect()
+      setScore((s) => s + 1)
+    } else {
+      playWrong()
+    }
     setTimeout(() => {
       if (step + 1 >= questions.length) {
+        playSuccess()
         setDone(true)
         onComplete?.()
       } else {

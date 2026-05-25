@@ -9,10 +9,22 @@ export default function ReasonsScreen({ data }) {
         {data.map((r, i) => (
           <motion.li
             key={i}
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: i * 0.1 }}
-            whileHover={{ scale: 1.03, x: 6 }}
+            initial={{ opacity: 0, x: -50, scale: 0.9 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            transition={{ 
+              type: 'spring', 
+              stiffness: 70, 
+              damping: 12, 
+              delay: i * 0.15 
+            }}
+            whileHover={{ 
+              scale: 1.03, 
+              x: 8, 
+              borderColor: 'rgba(232, 160, 176, 0.6)', 
+              boxShadow: '0 8px 24px rgba(232, 160, 176, 0.25)',
+              background: 'rgba(232, 160, 176, 0.08)'
+            }}
+            style={{ transition: 'border-color 0.2s, background-color 0.2s' }}
           >
             <span>{r.emoji}</span> {r.text}
           </motion.li>

@@ -15,6 +15,7 @@ export default function AnimatedPhoto({ src, fallbackSrc, alt, className = '' })
         transition={{ duration: 3, repeat: Infinity }}
       />
       <motion.div
+        className="photo-img-wrap"
         animate={{ y: [0, -8, 0] }}
         transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
       >

@@ -20,7 +20,7 @@ export default function GalleryScreen() {
           </motion.figure>
         ))}
       </div>
-      <p className="screen-hint">💡 Replace these with your real college photos in content.js</p>
+      <p className="screen-hint">💡 Sorry our  real college photos is not available</p>
     </div>
   )
 }

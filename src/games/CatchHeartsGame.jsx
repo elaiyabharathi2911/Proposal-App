@@ -1,11 +1,13 @@
 import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { games } from '../data/content'
+import { useAudio } from '../context/AudioContext'
 
 const TARGET = 12
 const TIME = 25
 
 export default function CatchHeartsGame({ onComplete }) {
+  const { playHeartCatch, playSuccess } = useAudio()
   const [score, setScore] = useState(0)
   const [time, setTime] = useState(TIME)
   const [hearts, setHearts] = useState([])
@@ -35,12 +37,14 @@ export default function CatchHeartsGame({ onComplete }) {
 
   useEffect(() => {
     if (score >= TARGET) {
+      playSuccess()
       setWon(true)
       onComplete?.()
     }
-  }, [score, onComplete])
+  }, [score, onComplete, playSuccess])
 
   const catchHeart = (id) => {
+    playHeartCatch()
     setHearts((h) => h.filter((x) => x.id !== id))
     setScore((s) => s + 1)
   }
@@ -63,7 +67,7 @@ export default function CatchHeartsGame({ onComplete }) {
         <button type="button" className="btn-retry" onClick={() => { setScore(0); setTime(TIME); setLost(false); setHearts([]) }}>
           Retry 🔄
         </button>
-        <button type="button" className="btn-retry" style={{ marginLeft: '0.5rem' }} onClick={() => { setWon(true); onComplete?.() }}>
+        <button type="button" className="btn-retry" style={{ marginLeft: '0.5rem' }} onClick={() => { playSuccess(); setWon(true); onComplete?.() }}>
           Continue → 💕
         </button>
       </div>
